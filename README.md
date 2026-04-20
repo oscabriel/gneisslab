@@ -1,83 +1,64 @@
 # gneisslab
 
-This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines React, TanStack Router, and more.
+Public landing page and docs site for the Gneiss minilab.
 
-## Features
+## Stack
 
-- **TypeScript** - For type safety and improved developer experience
-- **TanStack Router** - File-based routing with full type safety
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **Shared UI package** - shadcn/ui primitives live in `packages/ui`
-- **Oxlint** - Oxlint + Oxfmt (linting & formatting)
+- React 19
+- TanStack Router
+- Tailwind CSS v4
+- Vite
+- Alchemy for Cloudflare deployment
+- Oxlint and Oxfmt
 
 ## Getting Started
 
-First, install the dependencies:
+Install dependencies:
 
 ```bash
 bun install
 ```
 
-Then, run the development server:
+Run the web app locally:
 
 ```bash
 bun run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser to see the web application.
+Open `http://localhost:3001` in your browser.
 
-## UI Customization
+## Deployment
 
-React web apps in this stack share shadcn/ui primitives through `packages/ui`.
-
-- Change design tokens and global styles in `packages/ui/src/styles/globals.css`
-- Update shared primitives in `packages/ui/src/components/*`
-- Adjust shadcn aliases or style config in `packages/ui/components.json` and `apps/web/components.json`
-
-### Add more shared components
-
-Run this from the project root to add more primitives to the shared UI package:
+Deploy from the app workspace:
 
 ```bash
-npx shadcn@latest add accordion dialog popover sheet table -c packages/ui
+cd apps/web
+bun run deploy
 ```
 
-Import shared components like this:
+Destroy the deployed app:
 
-```tsx
-import { Button } from "@gneisslab/ui/components/button";
+```bash
+cd apps/web
+bun run destroy
 ```
-
-### Add app-specific blocks
-
-If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
-
-## Deployment (Cloudflare via Alchemy)
-
-- Dev: cd apps/web && bun run alchemy dev
-- Deploy: cd apps/web && bun run deploy
-- Destroy: cd apps/web && bun run destroy
-
-For more details, see the guide on [Deploying to Cloudflare with Alchemy](https://www.better-t-stack.dev/docs/guides/cloudflare-alchemy).
-
-## Git Hooks and Formatting
-
-- Format and lint fix: `bun run check`
 
 ## Project Structure
 
-```
+```text
 gneisslab/
 ├── apps/
-│   ├── web/         # Frontend application (React + TanStack Router)
-├── packages/
-│   ├── ui/          # Shared shadcn/ui components and styles
+│   └── web/
+│       ├── alchemy.run.ts
+│       ├── src/content/      # public docs and service metadata
+│       └── src/routes/       # landing page, docs, services
 ```
 
-## Available Scripts
+## Scripts
 
-- `bun run dev`: Start all applications in development mode
-- `bun run build`: Build all applications
-- `bun run dev:web`: Start only the web application
-- `bun run check-types`: Check TypeScript types across all apps
+- `bun run dev`: Start the web app in development mode
+- `bun run build`: Build the web app
+- `bun run check-types`: Build and run TypeScript checks
+- `bun run deploy`: Deploy the web app through Alchemy
+- `bun run destroy`: Destroy the deployed web app
 - `bun run check`: Run Oxlint and Oxfmt

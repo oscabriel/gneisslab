@@ -3,36 +3,25 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "apps/*",
-      "packages/*"
+      "apps/*"
     ],
     "catalog": {
-      "dotenv": "^17.2.2",
-      "zod": "^4.1.13",
       "typescript": "^6",
-      "next-themes": "^0.4.6",
       "@types/react-dom": "^19.2.3",
       "alchemy": "^0.91.2"
     }
   },
   "type": "module",
   "scripts": {
-    "dev": "bun run --filter '*' dev",
-    "build": "bun run --filter '*' build",
-    "check-types": "bun run --filter '*' check-types",
+    "dev": "bun run --filter web dev",
+    "build": "bun run --filter web build",
+    "check-types": "bun run --filter web check-types",
     "dev:web": "bun run --filter web dev",
-    "deploy": "bun run --filter @gneisslab/infra deploy",
-    "destroy": "bun run --filter @gneisslab/infra destroy",
+    "deploy": "bun run --filter web deploy",
+    "destroy": "bun run --filter web destroy",
     "check": "oxlint && oxfmt --write"
   },
-  "dependencies": {
-    "@gneisslab/env": "workspace:*",
-    "dotenv": "catalog:",
-    "zod": "catalog:"
-  },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251213.0",
-    "@gneisslab/config": "workspace:*",
     "oxfmt": "^0.26.0",
     "oxlint": "^1.41.0",
     "typescript": "catalog:"
