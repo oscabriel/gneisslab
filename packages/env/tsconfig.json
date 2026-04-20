@@ -1,0 +1,3 @@
+{
+  "extends": "@gneisslab/config/tsconfig.base.json"
+}
