@@ -1,9 +1,6 @@
-import { Toaster } from "@gneisslab/ui/components/sonner";
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import Header from "@/components/header";
-import { ThemeProvider } from "@/components/theme-provider";
 
 import "../index.css";
 
@@ -14,11 +11,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "gneisslab",
+        title: "gneiss.run",
       },
       {
         name: "description",
-        content: "gneisslab is a web application",
+        content:
+          "Public landing page and docs for the Gneiss minilab and its self-hosted services.",
       },
     ],
     links: [
@@ -34,19 +32,10 @@ function RootComponent() {
   return (
     <>
       <HeadContent />
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        disableTransitionOnChange
-        storageKey="vite-ui-theme"
-      >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
-          <Header />
-          <Outlet />
-        </div>
-        <Toaster richColors />
-      </ThemeProvider>
-      <TanStackRouterDevtools position="bottom-left" />
+      <div className="grid min-h-svh grid-rows-[auto_1fr] bg-background">
+        <Header />
+        <Outlet />
+      </div>
     </>
   );
 }
