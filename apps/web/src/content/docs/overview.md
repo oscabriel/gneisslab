@@ -1,4 +1,4 @@
-Gneiss is a compact split-role minilab built to host a private media stack, a small set of self-hosted tools, and the public site you are reading now.
+GNEISS LAB is a compact split-role minilab built to host a private media stack, a small set of self-hosted tools, and the public site you are reading now.
 
 The lab is deliberately simple in version one:
 

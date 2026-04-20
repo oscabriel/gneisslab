@@ -11,12 +11,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "gneiss.run",
+        title: "GNEISS LAB",
       },
       {
         name: "description",
         content:
-          "Public landing page and docs for the Gneiss minilab and its self-hosted services.",
+          "Public landing page and docs for GNEISS LAB and its self-hosted services.",
       },
     ],
     links: [
@@ -32,7 +32,7 @@ function RootComponent() {
   return (
     <>
       <HeadContent />
-      <div className="grid min-h-svh grid-rows-[auto_1fr] bg-background">
+      <div className="grid min-h-svh grid-rows-[auto_1fr] bg-cream">
         <Header />
         <Outlet />
       </div>

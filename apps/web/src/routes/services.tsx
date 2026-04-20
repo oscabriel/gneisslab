@@ -1,17 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { operatorServiceLinks, visitorServiceLinks } from "@/content/services";
+import type { ServiceLink } from "@/content/services";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       {
-        title: "Services | gneiss.run",
+        title: "Services | GNEISS LAB",
       },
       {
         name: "description",
         content:
-          "Service directory for the Gneiss minilab, including visitor-facing and operator-facing endpoints.",
+          "Service directory for GNEISS LAB, including visitor-facing and operator-facing endpoints.",
       },
     ],
   }),
@@ -20,84 +21,127 @@ export const Route = createFileRoute("/services")({
 
 function ServicesPage() {
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8">
-      <section className="space-y-3">
-        <h1 className="text-3xl font-semibold tracking-tight">Services</h1>
-        <p className="max-w-3xl text-sm/7 text-muted-foreground">
-          This is the canonical directory for the `*.gneiss.run` service endpoints. The links are
-          public here so the address space is easy to understand, but most services are only useful
-          on the trusted network or for users authorized on the Tailnet.
+    <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-6">
+      {/* Page header - compact like US Graphics */}
+      <section>
+        <h2 className="font-mono text-sm font-semibold tracking-wide">Services</h2>
+        <div className="section-divider mt-1" />
+      </section>
+
+      <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        {/* Left: Description */}
+        <div className="space-y-3">
+          <p className="text-sm font-medium">Complete service directory.</p>
+          <p className="text-sm text-ink-muted">
+            Directory for the <code className="sku-badge">*.gneiss.run</code> address space. Links
+            are published for reference, but most services require local network access or Tailnet
+            authorization.
+          </p>
+        </div>
+
+        {/* Right: Quick stats */}
+        <div>
+          <table className="w-full border-l-4 border-ink text-sm">
+            <tbody>
+              <tr className="border-b border-border-light">
+                <td className="py-1 pl-3 font-medium">{visitorServiceLinks.length}</td>
+                <td className="py-1 text-ink-muted">Visitor-facing services</td>
+              </tr>
+              <tr className="border-b border-border-light">
+                <td className="py-1 pl-3 font-medium">{operatorServiceLinks.length}</td>
+                <td className="py-1 text-ink-muted">Operator-facing services</td>
+              </tr>
+              <tr className="border-b border-border-light">
+                <td className="py-1 pl-3 font-medium">2</td>
+                <td className="py-1 text-ink-muted">Host nodes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Visitor services */}
+      <section className="pt-2">
+        <h3 className="font-mono text-sm font-semibold">Visitor-Facing Services</h3>
+        <div className="section-divider mt-1" />
+        <p className="mt-2 text-xs text-ink-muted">
+          Surfaces for trusted remote users. Access depends on Tailnet authorization and app
+          sign-in.
         </p>
+        <ServiceTable services={visitorServiceLinks} category="visitor" />
       </section>
 
-      <section className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">Visitor-facing services</h2>
-          <p className="text-sm/7 text-muted-foreground">
-            These are the surfaces meant for actual use by trusted remote users. Remote access still
-            depends on Tailnet authorization and each app&apos;s own sign-in model.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {visitorServiceLinks.map((service) => (
-            <ServiceCard key={service.name} service={service} />
-          ))}
-        </div>
+      {/* Operator services */}
+      <section className="pt-2">
+        <h3 className="font-mono text-sm font-semibold">Operator-Facing Services</h3>
+        <div className="section-divider mt-1" />
+        <p className="mt-2 text-xs text-ink-muted">
+          Administrative and infrastructure services. Included for system legibility.
+        </p>
+        <ServiceTable services={operatorServiceLinks} category="operator" />
       </section>
 
-      <section className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">Operator-facing services</h2>
-          <p className="text-sm/7 text-muted-foreground">
-            These links are included to make the stack legible as a system. They are not intended as
-            public endpoints.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {operatorServiceLinks.map((service) => (
-            <ServiceCard key={service.name} service={service} />
-          ))}
-        </div>
-      </section>
+      {/* Footer */}
+      <footer className="mt-4 border-t border-ink pt-4 text-center">
+        <p className="font-mono text-xs text-ink-muted">
+          GNEISS LAB · Service Catalog · gneiss.run
+        </p>
+      </footer>
     </main>
   );
 }
 
-function ServiceCard({
-  service,
+function ServiceTable({
+  services,
+  category,
 }: {
-  service: {
-    name: string;
-    href: string;
-    summary: string;
-    category: string;
-    runsOn: string;
-    accessLabel: string;
-    accessNote: string;
-  };
+  services: ServiceLink[];
+  category: "visitor" | "operator";
 }) {
+  const prefix = category === "visitor" ? "VS" : "OS";
+
   return (
-    <section className="space-y-3 border p-4">
-      <div className="space-y-1">
-        <h3 className="text-lg font-semibold">{service.name}</h3>
-        <p className="text-sm/7 text-muted-foreground">{service.summary}</p>
-      </div>
-      <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          {service.category}
-        </p>
-        <p className="text-sm/7 text-muted-foreground">Runs on {service.runsOn}.</p>
-        <p className="text-sm font-medium">{service.accessLabel}</p>
-        <p className="text-sm/7 text-muted-foreground">{service.accessNote}</p>
-        <a
-          className="underline underline-offset-4"
-          href={service.href}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {service.href}
-        </a>
-      </div>
-    </section>
+    <table className="table-catalog mt-3">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Service</th>
+          <th className="hidden lg:table-cell">Category</th>
+          <th className="hidden sm:table-cell">Host</th>
+          <th>Access</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {services.map((service, index) => (
+          <tr key={service.name}>
+            <td>
+              <span className="sku-badge">
+                {prefix}-{String(index + 1).padStart(3, "0")}
+              </span>
+            </td>
+            <td className="font-medium">{service.name}</td>
+            <td className="hidden text-xs text-ink-muted lg:table-cell">{service.category}</td>
+            <td className="hidden font-mono text-xs text-ink-muted sm:table-cell">
+              {service.runsOn}
+            </td>
+            <td>
+              <span
+                className={`text-xs ${
+                  service.accessLabel === "Admin only" ? "text-accent-orange" : "text-accent-green"
+                }`}
+              >
+                {service.accessLabel === "Admin only" ? "◆" : "●"} {service.accessLabel}
+              </span>
+            </td>
+            <td>
+              <a href={service.href} target="_blank" rel="noreferrer" className="btn-primary">
+                OPEN →
+              </a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

@@ -16,8 +16,8 @@ export interface PublicDoc {
 export const publicDocs: PublicDoc[] = [
   {
     slug: "overview",
-    title: "Minilab Overview",
-    description: "What Gneiss is, what the lab is for, and the guardrails behind the build.",
+    title: "Lab Overview",
+    description: "What GNEISS LAB is, what the lab is for, and the guardrails behind the build.",
     updated: "2026-04-18",
     content: overviewContent,
   },
@@ -37,7 +37,7 @@ export const publicDocs: PublicDoc[] = [
   },
   {
     slug: "software-and-media",
-    title: "Software And Media Stack",
+    title: "Software & Media Stack",
     description: "The services running on the lab and the media workflow built around them.",
     updated: "2026-04-18",
     content: softwareAndMediaContent,

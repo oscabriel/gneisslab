@@ -2,26 +2,69 @@
 @source "./**/*.{ts,tsx}";
 
 :root {
-  color-scheme: dark;
-  --background: oklch(0.16 0 0);
-  --foreground: oklch(0.96 0 0);
-  --muted: oklch(0.23 0 0);
-  --muted-foreground: oklch(0.72 0 0);
-  --border: oklch(1 0 0 / 12%);
+  color-scheme: light;
+  
+  /* Core palette - utilitarian terminal aesthetic */
+  --cream: #f5f3ef;
+  --paper: #faf9f7;
+  --ink: #1a1a1a;
+  --ink-muted: #4a4a4a;
+  --ink-faint: #8a8a8a;
+  --border: #1a1a1a;
+  --border-light: #d4d2ce;
+  
+  /* Accent colors - inspired by old computer manuals and technical docs */
+  --accent-red: #c23c2a;
+  --accent-orange: #d4682a;
+  --accent-gold: #c9a227;
+  --accent-green: #2d8a4e;
+  --accent-teal: #1a7a7a;
+  --accent-blue: #2563a8;
+  --accent-navy: #1e3a5f;
+  --accent-purple: #5a3d7a;
+  
+  /* Status colors */
+  --status-active: var(--accent-green);
+  --status-warning: var(--accent-orange);
+  --status-info: var(--accent-blue);
+  
+  /* Semantic tokens */
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --muted: var(--ink-muted);
+  --muted-foreground: var(--ink-faint);
 }
 
 @theme inline {
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  
+  --color-accent-red: var(--accent-red);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-green: var(--accent-green);
+  --color-accent-teal: var(--accent-teal);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-navy: var(--accent-navy);
+  --color-accent-purple: var(--accent-purple);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--border-light);
   }
 
   html,
@@ -31,10 +74,99 @@
   }
 
   body {
-    @apply bg-background font-sans text-foreground;
+    @apply bg-cream font-sans text-ink antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
   }
 
   a {
-    @apply text-foreground;
+    @apply text-ink;
+  }
+  
+  ::selection {
+    background: var(--ink);
+    color: var(--cream);
+  }
+}
+
+/* Utility classes for the design system */
+@layer utilities {
+  .sku-badge {
+    @apply inline-block border border-ink bg-paper px-1.5 py-0 font-mono text-xs font-medium tracking-wide;
+  }
+  
+  /* Button with drop shadow matching ASCII art aesthetic */
+  .btn-primary {
+    @apply inline-flex items-center gap-1 border border-ink bg-cream px-3 py-1 font-mono text-xs font-medium text-ink transition-all;
+    box-shadow: 3px 3px 0 0 var(--ink);
+  }
+  
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 0 var(--ink);
+    transform: translate(1px, 1px);
+  }
+  
+  .btn-primary:active {
+    box-shadow: 0 0 0 0 var(--ink);
+    transform: translate(3px, 3px);
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center gap-1 border border-ink bg-cream px-3 py-1 font-mono text-xs font-medium text-ink transition-all;
+    box-shadow: 3px 3px 0 0 var(--ink);
+  }
+  
+  .btn-secondary:hover {
+    box-shadow: 2px 2px 0 0 var(--ink);
+    transform: translate(1px, 1px);
+  }
+  
+  .btn-secondary:active {
+    box-shadow: 0 0 0 0 var(--ink);
+    transform: translate(3px, 3px);
+  }
+  
+  /* Compact table for catalog-style listings */
+  .table-catalog {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  
+  .table-catalog th {
+    @apply border-b border-ink px-2 py-1.5 font-mono text-xs font-semibold uppercase tracking-wide;
+  }
+  
+  .table-catalog td {
+    @apply border-b border-border-light px-2 py-1.5 text-sm;
+  }
+  
+  .table-catalog tbody tr:hover {
+    @apply bg-paper;
+  }
+  
+  .section-divider {
+    @apply h-px w-full;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--ink-faint) 0,
+      var(--ink-faint) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+  
+  .section-divider-solid {
+    @apply h-px w-full bg-ink;
+  }
+  
+  .color-stripe {
+    @apply flex h-2 w-full;
+  }
+  
+  .color-stripe > span {
+    @apply flex-1;
+  }
+  
+  /* Blockquote styling for philosophy/definitions */
+  .blockquote-definition {
+    @apply border-l-4 border-ink pl-3 italic text-ink-muted;
   }
 }
