@@ -1,3 +1,11 @@
 {
-  "ignorePatterns": []
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"ignorePatterns": ["dist/", "routeTree.gen.ts"],
+	"experimentalTailwindcss": {
+		"attributes": ["class", "className"],
+		"functions": ["clsx", "cn"],
+		"preserveDuplicates": false,
+		"preserveWhitespace": false
+	}
 }
