@@ -32,7 +32,7 @@ function HomeComponent() {
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-6">
 
       {/* ASCII Banner Section */}
-      <section className="pt-4">
+      <section>
         <h3 className="font-mono text-sm font-semibold">Lab Banner</h3>
         <div className="section-divider mt-1" />
 

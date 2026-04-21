@@ -32,13 +32,9 @@ export default function Header() {
                 <Link
                   key={to}
                   to={to}
-                  className={`border px-3 py-1 font-mono text-xs transition-all ${
-                    active
-                      ? "border-ink bg-ink text-cream"
-                      : "border-ink bg-cream text-ink hover:bg-ink hover:text-cream"
-                  }`}
+                  className={`border border-ink bg-cream px-3 py-1 font-mono text-xs text-ink transition-all hover:bg-ink hover:text-cream`}
                   style={{
-                    boxShadow: active ? "none" : "2px 2px 0 0 var(--ink)",
+                    boxShadow: "2px 2px 0 0 var(--ink)",
                   }}
                 >
                   {active && <span className="mr-1">●</span>}
