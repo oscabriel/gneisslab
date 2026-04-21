@@ -9,8 +9,8 @@ build
 *.tsbuildinfo
 
 # Environment variables
-.env
-.env*.local
+.env*
+!.env.example
 
 # IDEs and editors
 .vscode/*
@@ -39,6 +39,10 @@ lerna-debug.log*
 
 # Better-T-Stack
 .alchemy
+.react-router
+.tanstack
+.wrangler
+.dev.vars*
 
 # Testing
 coverage
@@ -47,5 +51,6 @@ coverage
 # Misc
 *.tgz
 .cache
+.open-next
 tmp
 temp

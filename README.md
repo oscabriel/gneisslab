@@ -29,17 +29,15 @@ Open `http://localhost:3001` in your browser.
 
 ## Deployment
 
-Deploy from the app workspace:
+Deploy from the repo root:
 
 ```bash
-cd apps/web
 bun run deploy
 ```
 
 Destroy the deployed app:
 
 ```bash
-cd apps/web
 bun run destroy
 ```
 
@@ -47,18 +45,17 @@ bun run destroy
 
 ```text
 gneisslab/
-├── apps/
-│   └── web/
-│       ├── alchemy.run.ts
-│       ├── src/content/      # public docs and service metadata
-│       └── src/routes/       # landing page, docs, services
+├── alchemy.run.ts
+├── src/content/      # public docs and service metadata
+└── src/routes/       # landing page, docs, services
 ```
 
 ## Scripts
 
-- `bun run dev`: Start the web app in development mode
+- `bun run dev`: Start the Alchemy-backed dev environment on stage `dev`
+- `bun run dev:web`: Start Vite without Alchemy
 - `bun run build`: Build the web app
 - `bun run check-types`: Build and run TypeScript checks
-- `bun run deploy`: Deploy the web app through Alchemy
+- `bun run deploy`: Deploy the web app through Alchemy on stage `prod`
 - `bun run destroy`: Destroy the deployed web app
 - `bun run check`: Run Oxlint and Oxfmt

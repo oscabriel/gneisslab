@@ -1,15 +1,12 @@
 import alchemy from "alchemy";
 import { Vite } from "alchemy/cloudflare";
-import { config } from "dotenv";
-
-config({ path: "./.env" });
 
 const app = await alchemy("gneisslab");
 const domain = app.stage === "prod" ? "gneiss.run" : undefined;
 
 export const web = await Vite("web", {
   cwd: ".",
-	assets: "dist",
+  assets: "dist",
   adopt: true,
   domains: domain
     ? [
