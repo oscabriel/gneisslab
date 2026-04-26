@@ -1,4 +1,5 @@
 export interface ServiceLink {
+	id: string;
 	name: string;
 	href: string;
 	summary: string;
@@ -10,7 +11,16 @@ export interface ServiceLink {
 	featured?: boolean;
 }
 
-export const serviceLinks: ServiceLink[] = [
+type ServiceLinkSeed = Omit<ServiceLink, "id">;
+
+function createServiceId(index: number) {
+	const normalized = "SRV";
+	const shortCode = normalized.slice(0, 6);
+
+	return `${shortCode}-${String(index + 1).padStart(2, "0")}`;
+}
+
+const serviceLinkSeeds: ServiceLinkSeed[] = [
 	{
 		name: "Jellyfin",
 		href: "https://watch.gneiss.run",
@@ -144,6 +154,11 @@ export const serviceLinks: ServiceLink[] = [
 		audience: "visitor",
 	},
 ];
+
+export const serviceLinks: ServiceLink[] = serviceLinkSeeds.map((service, index) => ({
+	...service,
+	id: createServiceId(index),
+}));
 
 export const featuredServiceLinks = serviceLinks.filter((service) => service.featured);
 export const visitorServiceLinks = serviceLinks.filter((service) => service.audience === "visitor");

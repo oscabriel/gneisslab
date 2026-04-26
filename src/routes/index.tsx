@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { ServiceTable } from "@/components/service-table";
 import { publicDocs } from "@/content/docs";
 import { featuredServiceLinks } from "@/content/services";
 
@@ -26,12 +27,6 @@ export const Route = createFileRoute("/")({
 		}),
 	component: HomeComponent,
 });
-
-function getCompactAccessLabel(label: string) {
-	if (label === "Tailnet + App Account") return "Tailnet + App";
-	if (label === "Admin only") return "Admin";
-	return label;
-}
 
 function HomeComponent() {
 	return (
@@ -79,42 +74,7 @@ function HomeComponent() {
 				<h3 className="font-mono text-sm font-semibold">Featured Services</h3>
 				<div className="section-divider mt-1" />
 
-				<table className="table-catalog mt-3 table-fixed sm:table-auto">
-					<thead>
-						<tr>
-							<th className="w-20">SKU</th>
-							<th>Service</th>
-							<th className="hidden sm:table-cell">Description</th>
-							<th className="w-24">Access</th>
-							<th className="w-16"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{featuredServiceLinks.map((service, index) => (
-							<tr key={service.name}>
-								<td>
-									<span className="sku-badge">SV-{String(index + 1).padStart(3, "0")}</span>
-								</td>
-								<td className="font-medium">
-									<span className="block truncate">{service.name}</span>
-								</td>
-								<td className="text-ink-muted hidden text-xs sm:table-cell">{service.summary}</td>
-								<td className="text-ink-muted text-xs">
-									<span className="block truncate sm:hidden">
-										{getCompactAccessLabel(service.accessLabel)}
-									</span>
-									<span className="hidden sm:inline">{service.accessLabel}</span>
-								</td>
-								<td className="text-right">
-									<a href={service.href} target="_blank" rel="noreferrer" className="btn-primary">
-										<span>OPEN</span>
-										<span className="hidden sm:inline">→</span>
-									</a>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<ServiceTable services={featuredServiceLinks} />
 			</section>
 
 			{/* Documentation - Compact Table */}

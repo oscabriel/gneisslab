@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { ServiceTable } from "@/components/service-table";
 import { operatorServiceLinks, serviceLinks, visitorServiceLinks } from "@/content/services";
-import type { ServiceLink } from "@/content/services";
 
 export const Route = createFileRoute("/services")({
 	head: () => ({
@@ -18,12 +18,6 @@ export const Route = createFileRoute("/services")({
 	}),
 	component: ServicesPage,
 });
-
-function getCompactAccessLabel(label: string) {
-	if (label === "Tailnet + App Account") return "Tailnet + App";
-	if (label === "Admin only") return "Admin";
-	return label;
-}
 
 function ServicesPage() {
 	const hostCount = new Set(serviceLinks.map((service) => service.runsOn)).size;
@@ -76,7 +70,7 @@ function ServicesPage() {
 					Surfaces for trusted remote users. Access depends on Tailnet authorization and app
 					sign-in.
 				</p>
-				<ServiceTable services={visitorServiceLinks} category="visitor" />
+				<ServiceTable services={visitorServiceLinks} />
 			</section>
 
 			{/* Operator services */}
@@ -86,7 +80,7 @@ function ServicesPage() {
 				<p className="text-ink-muted mt-2 text-xs">
 					Administrative and infrastructure services. Included for system legibility.
 				</p>
-				<ServiceTable services={operatorServiceLinks} category="operator" />
+				<ServiceTable services={operatorServiceLinks} />
 			</section>
 
 			{/* Footer */}
@@ -96,65 +90,5 @@ function ServicesPage() {
 				</p>
 			</footer>
 		</main>
-	);
-}
-
-function ServiceTable({
-	services,
-	category,
-}: {
-	services: ServiceLink[];
-	category: "visitor" | "operator";
-}) {
-	const prefix = category === "visitor" ? "VS" : "OS";
-
-	return (
-		<table className="table-catalog mt-3 table-fixed sm:table-auto">
-			<thead>
-				<tr>
-					<th className="w-20">SKU</th>
-					<th>Service</th>
-					<th className="hidden lg:table-cell">Category</th>
-					<th className="hidden sm:table-cell">Host</th>
-					<th className="w-24">Access</th>
-					<th className="w-16"></th>
-				</tr>
-			</thead>
-			<tbody>
-				{services.map((service, index) => (
-					<tr key={service.name}>
-						<td>
-							<span className="sku-badge">
-								{prefix}-{String(index + 1).padStart(3, "0")}
-							</span>
-						</td>
-						<td className="font-medium">
-							<span className="block truncate">{service.name}</span>
-						</td>
-						<td className="text-ink-muted hidden text-xs lg:table-cell">{service.category}</td>
-						<td className="text-ink-muted hidden font-mono text-xs sm:table-cell whitespace-nowrap">
-							{service.runsOn}
-						</td>
-						<td>
-							<span
-								className={`block truncate text-xs ${
-									service.accessLabel === "Admin only" ? "text-accent-orange" : "text-accent-green"
-								}`}
-							>
-								{service.accessLabel === "Admin only" ? "◆" : "●"}{" "}
-								<span className="sm:hidden">{getCompactAccessLabel(service.accessLabel)}</span>
-								<span className="hidden sm:inline">{service.accessLabel}</span>
-							</span>
-						</td>
-						<td className="text-right">
-							<a href={service.href} target="_blank" rel="noreferrer" className="btn-primary">
-								<span>OPEN</span>
-								<span className="hidden sm:inline">→</span>
-							</a>
-						</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
 	);
 }
