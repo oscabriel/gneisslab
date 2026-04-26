@@ -95,13 +95,23 @@ export const serviceLinks: ServiceLink[] = [
 	},
 	{
 		name: "ZimaOS",
-		href: "https://home.gneiss.run",
+		href: "https://zima.gneiss.run",
 		summary: "Storage node dashboard and system management.",
 		category: "Operations",
 		runsOn: "Storage Node",
 		accessLabel: "Admin only",
 		accessNote: "Primary system administration surface for the NAS node.",
 		audience: "operator",
+	},
+	{
+		name: "Home Assistant",
+		href: "https://home.gneiss.run",
+		summary: "Smart home control plane for the lab.",
+		category: "Home Automation",
+		runsOn: "Storage Node",
+		accessLabel: "Tailnet + App Account",
+		accessNote: "Trusted lab users can sign in to Home Assistant once they can reach the private service URL.",
+		audience: "visitor",
 	},
 	{
 		name: "Terminal",
@@ -129,9 +139,9 @@ export const serviceLinks: ServiceLink[] = [
 		summary: "Self-hosted coding assistant surface on the compute node.",
 		category: "Operations",
 		runsOn: "Compute Node",
-		accessLabel: "Admin only",
-		accessNote: "Operator-only development tool.",
-		audience: "operator",
+		accessLabel: "Tailnet + App Account",
+		accessNote: "Trusted lab users can reach the assistant through the private service URL and sign in there.",
+		audience: "visitor",
 	},
 ];
 

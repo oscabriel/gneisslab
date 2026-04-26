@@ -1,4 +1,4 @@
-The lab is built around one public site and a separate private service surface.
+The lab is built around one public site, a separate private service surface, and a dedicated smart-home appliance.
 
 ## The Big Picture
 
@@ -34,6 +34,14 @@ The storage machine handles the parts of the system that want to live near the d
 - DNS for the local network
 - VPN layer for the torrent workflow
 
+### Home automation appliance
+
+The Home Assistant appliance keeps the smart-home layer off the main lab nodes.
+
+- Home Assistant Green hardware
+- `home.gneiss.run` for the smart-home control plane
+- isolated automation duties and future Zigbee or Thread expansion
+
 ## Network Model
 
 The network is intentionally flat in version one.
@@ -66,6 +74,7 @@ The reverse proxy terminates HTTPS and forwards each request to the correct back
 - the public site can stay simple and explain the system clearly
 - trusted users get one canonical address for each service
 - the compute and storage responsibilities stay separated
+- smart-home duties stay isolated on their own appliance
 - the network can stay simple until there is a real reason to introduce VLANs or a more complex firewall
 
 ## Next Infrastructure Steps

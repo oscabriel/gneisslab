@@ -32,7 +32,7 @@ export default function Header() {
 								<Link
 									key={to}
 									to={to}
-									className={`border-ink bg-cream text-ink hover:bg-ink hover:text-cream border px-3 py-1 font-mono text-xs transition-all`}
+									className={`border-ink bg-cream text-ink hover:bg-ink hover:text-cream inline-flex shrink-0 items-center whitespace-nowrap border px-3 py-1 font-mono text-xs transition-all`}
 									style={{
 										boxShadow: "2px 2px 0 0 var(--ink)",
 									}}

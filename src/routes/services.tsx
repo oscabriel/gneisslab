@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { operatorServiceLinks, visitorServiceLinks } from "@/content/services";
+import { operatorServiceLinks, serviceLinks, visitorServiceLinks } from "@/content/services";
 import type { ServiceLink } from "@/content/services";
 
 export const Route = createFileRoute("/services")({
@@ -19,7 +19,15 @@ export const Route = createFileRoute("/services")({
 	component: ServicesPage,
 });
 
+function getCompactAccessLabel(label: string) {
+	if (label === "Tailnet + App Account") return "Tailnet + App";
+	if (label === "Admin only") return "Admin";
+	return label;
+}
+
 function ServicesPage() {
+	const hostCount = new Set(serviceLinks.map((service) => service.runsOn)).size;
+
 	return (
 		<main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-6">
 			{/* Page header - compact like US Graphics */}
@@ -52,7 +60,7 @@ function ServicesPage() {
 								<td className="text-ink-muted py-1">Operator-facing services</td>
 							</tr>
 							<tr className="border-border-light border-b">
-								<td className="py-1 pl-3 font-medium">2</td>
+								<td className="py-1 pl-3 font-medium">{hostCount}</td>
 								<td className="text-ink-muted py-1">Host nodes</td>
 							</tr>
 						</tbody>
@@ -101,15 +109,15 @@ function ServiceTable({
 	const prefix = category === "visitor" ? "VS" : "OS";
 
 	return (
-		<table className="table-catalog mt-3">
+		<table className="table-catalog mt-3 table-fixed sm:table-auto">
 			<thead>
 				<tr>
-					<th>SKU</th>
+					<th className="w-20">SKU</th>
 					<th>Service</th>
 					<th className="hidden lg:table-cell">Category</th>
 					<th className="hidden sm:table-cell">Host</th>
-					<th>Access</th>
-					<th></th>
+					<th className="w-24">Access</th>
+					<th className="w-16"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -120,23 +128,28 @@ function ServiceTable({
 								{prefix}-{String(index + 1).padStart(3, "0")}
 							</span>
 						</td>
-						<td className="font-medium">{service.name}</td>
+						<td className="font-medium">
+							<span className="block truncate">{service.name}</span>
+						</td>
 						<td className="text-ink-muted hidden text-xs lg:table-cell">{service.category}</td>
-						<td className="text-ink-muted hidden font-mono text-xs sm:table-cell">
+						<td className="text-ink-muted hidden font-mono text-xs sm:table-cell whitespace-nowrap">
 							{service.runsOn}
 						</td>
 						<td>
 							<span
-								className={`text-xs ${
+								className={`block truncate text-xs ${
 									service.accessLabel === "Admin only" ? "text-accent-orange" : "text-accent-green"
 								}`}
 							>
-								{service.accessLabel === "Admin only" ? "◆" : "●"} {service.accessLabel}
+								{service.accessLabel === "Admin only" ? "◆" : "●"}{" "}
+								<span className="sm:hidden">{getCompactAccessLabel(service.accessLabel)}</span>
+								<span className="hidden sm:inline">{service.accessLabel}</span>
 							</span>
 						</td>
-						<td>
+						<td className="text-right">
 							<a href={service.href} target="_blank" rel="noreferrer" className="btn-primary">
-								OPEN →
+								<span>OPEN</span>
+								<span className="hidden sm:inline">→</span>
 							</a>
 						</td>
 					</tr>

@@ -1,10 +1,11 @@
-GNEISS LAB is a compact split-role minilab built to host a private media stack, a small set of self-hosted tools, and the public site you are reading now.
+GNEISS LAB is a compact split-role minilab built to host a private media stack, a small set of self-hosted tools, a dedicated home automation appliance, and the public site you are reading now.
 
 The lab is deliberately simple in version one:
 
 - one compute machine for interactive work, media playback, and reverse proxy duties
 - one storage machine for disks, shares, and the download and automation stack
-- one small multi-gig switch for fast local traffic between the two
+- one dedicated Home Assistant appliance for smart-home duties
+- one small multi-gig switch for fast local traffic between the lab nodes
 
 ## Goals
 
@@ -37,6 +38,12 @@ The service subdomains under `*.gneiss.run` are the private application surface 
 - stores media and downloads on the HDD array
 - runs the media automation and download services
 
+### Home automation appliance
+
+- Home Assistant Green
+- reserves `home.gneiss.run` for the smart-home control plane
+- keeps home automation separate from the compute and storage roles
+
 ### Network core
 
 - eero router and Wi-Fi
@@ -47,7 +54,7 @@ The service subdomains under `*.gneiss.run` are the private application surface 
 
 ### Split roles on purpose
 
-Jellyfin and interactive work stay on the compute node. Storage, shares, and the automation stack stay on the storage node. That keeps the system easier to reason about and makes the responsibilities of each box obvious.
+Jellyfin and interactive work stay on the compute node. Storage, shares, and the media automation stack stay on the storage node. Home automation stays on its own appliance. That keeps the system easier to reason about and makes the responsibilities of each box obvious.
 
 ### Stable URLs matter
 

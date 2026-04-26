@@ -63,14 +63,14 @@ function DocsIndexPage() {
 				<h3 className="font-mono text-sm font-semibold">Available Documents</h3>
 				<div className="section-divider mt-1" />
 
-				<table className="table-catalog mt-3">
+				<table className="table-catalog mt-3 table-fixed sm:table-auto">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th className="w-20">ID</th>
 							<th>Document</th>
 							<th className="hidden sm:table-cell">Description</th>
-							<th>Updated</th>
-							<th></th>
+							<th className="w-24">Updated</th>
+							<th className="w-16"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -79,12 +79,14 @@ function DocsIndexPage() {
 								<td>
 									<span className="sku-badge">DOC-{String(index + 1).padStart(2, "0")}</span>
 								</td>
-								<td className="font-medium">{doc.title}</td>
+								<td className="font-medium">
+									<span className="block truncate">{doc.title}</span>
+								</td>
 								<td className="text-ink-muted hidden max-w-xs truncate text-xs sm:table-cell">
 									{doc.description}
 								</td>
-								<td className="text-ink-muted font-mono text-xs">{doc.updated}</td>
-								<td>
+								<td className="text-ink-muted font-mono text-xs whitespace-nowrap">{doc.updated}</td>
+								<td className="text-right">
 									<Link to="/docs/$slug" params={{ slug: doc.slug }} className="btn-secondary">
 										READ
 									</Link>

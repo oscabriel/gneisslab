@@ -1,4 +1,4 @@
-The software side of the lab is split the same way as the hardware: compute-sensitive work stays on the compute node, storage-adjacent work stays on the storage node.
+The software side of the lab is split the same way as the hardware: compute-sensitive work stays on the compute node, storage-adjacent work stays on the storage node, and home automation stays on a dedicated appliance.
 
 ## Compute Node Services
 
@@ -40,6 +40,12 @@ The compute node is also the day-to-day machine for development and experimentat
 ### Local network plumbing
 
 - Pi-hole for DNS and split-horizon name resolution
+
+## Home Automation Appliance
+
+### Home Assistant
+
+Home Assistant lives on its own appliance so smart-home duties do not compete with media playback, storage, or download jobs. The public-facing service names now keep that split explicit: `home.gneiss.run` is reserved for Home Assistant, while `zima.gneiss.run` stays with the NAS dashboard.
 
 ## Media Workflow
 

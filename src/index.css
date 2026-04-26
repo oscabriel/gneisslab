@@ -100,7 +100,9 @@
 
 	/* Button with drop shadow matching ASCII art aesthetic */
 	.btn-primary {
-		@apply border-ink bg-cream text-ink inline-flex items-center gap-1 border px-3 py-1 font-mono text-xs font-medium transition-all;
+		@apply border-ink bg-cream text-ink inline-flex shrink-0 items-center justify-center gap-1 whitespace-nowrap border px-2 py-1 font-mono font-medium transition-all sm:px-3;
+		font-size: 11px;
+		line-height: 1;
 		box-shadow: 3px 3px 0 0 var(--ink);
 	}
 
@@ -115,7 +117,9 @@
 	}
 
 	.btn-secondary {
-		@apply border-ink bg-cream text-ink inline-flex items-center gap-1 border px-3 py-1 font-mono text-xs font-medium transition-all;
+		@apply border-ink bg-cream text-ink inline-flex shrink-0 items-center justify-center gap-1 whitespace-nowrap border px-2 py-1 font-mono font-medium transition-all sm:px-3;
+		font-size: 11px;
+		line-height: 1;
 		box-shadow: 3px 3px 0 0 var(--ink);
 	}
 

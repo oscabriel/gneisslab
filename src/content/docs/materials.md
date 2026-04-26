@@ -2,12 +2,14 @@ This is the high-level build list for the first version of the lab.
 
 It is intentionally a public summary, not the private purchasing and warranty tracker.
 
-## Compute And Storage
+## Compute, Storage, And Automation
 
 | Component                    | Role                                            |
 | ---------------------------- | ----------------------------------------------- |
 | Beelink SER9 MAX             | Compute node, Jellyfin host, reverse proxy host |
 | ZimaBoard 2 1664             | Storage node and service host                   |
+| Home Assistant Green         | Dedicated smart-home appliance                  |
+| Home Assistant Connect ZBT-1 | Future Zigbee and Thread radio                  |
 | JMB585 SATA card             | Expands the storage node for the HDD array      |
 | 2x Crucial MX500 1TB SSD     | Mirrored app-data tier                          |
 | 4x Seagate Exos X18 12TB HDD | Bulk media and downloads tier                   |
@@ -34,6 +36,7 @@ It is intentionally a public summary, not the private purchasing and warranty tr
 
 - the build intentionally sticks to SATA for version one
 - the storage node uses separate power for the HDD array
+- smart-home duties stay on a separate appliance
 - the layout is designed around compactness, cable clarity, and sustained airflow
 
 The private notes track purchase history, seller details, receipts, serials, and follow-up tasks. Those stay out of the public docs on purpose.

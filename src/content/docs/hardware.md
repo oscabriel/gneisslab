@@ -1,4 +1,4 @@
-The first version of the lab is a compact two-node build with a small wired core and an intentionally simple rack plan.
+The first version of the lab is a compact build with two core nodes, one dedicated automation appliance, a small wired core, and an intentionally simple rack plan.
 
 ## Core Hardware
 
@@ -14,6 +14,12 @@ The first version of the lab is a compact two-node build with a small wired core
 - ZimaBoard 2
 - onboard SATA for the SSD pair
 - JMB585 SATA expansion card for the HDD array
+
+### Automation
+
+- Home Assistant Green
+- dedicated appliance for the smart-home stack
+- room for a future ZBT-1 radio for Zigbee and Thread duties
 
 ### Network
 
