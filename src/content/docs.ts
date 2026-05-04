@@ -1,4 +1,5 @@
 import accessModelContent from "./docs/access-model.md?raw";
+import threeDPrintFilesContent from "./docs/3d-print-files.md?raw";
 import architectureContent from "./docs/architecture.md?raw";
 import hardwareContent from "./docs/hardware.md?raw";
 import materialsContent from "./docs/materials.md?raw";
@@ -56,6 +57,13 @@ export const publicDocs: PublicDoc[] = [
 		description: "The build list for the first version of the lab.",
 		updated: "2026-05-03",
 		content: materialsContent,
+	},
+	{
+		slug: "3d-print-files",
+		title: "3D Print Files",
+		description: "Source models and print profiles for the minilab rack build.",
+		updated: "2026-05-04",
+		content: threeDPrintFilesContent,
 	},
 ];
 
