@@ -1,88 +1,37 @@
-The lab is built around one public site, a separate private service surface, and a dedicated smart-home appliance.
+The lab is built around one public site, a separate private service surface, and two core nodes with distinct responsibilities.
 
-## The Big Picture
+## Public and private surfaces
 
-### Public surface
+`gneiss.run` is the public landing page and docs site. It explains the lab, links to the service subdomains, and documents how the stack is put together.
 
-- `gneiss.run` is the public landing page and docs site.
-- It explains the lab, links to the service subdomains, and documents how the stack is put together.
+`*.gneiss.run` is the canonical address space for the self-hosted services. Those endpoints are not open to the general internet — remote access requires Tailnet authorization, and application-level accounts still apply.
 
-### Private service surface
+## Node responsibilities
 
-- `*.gneiss.run` is the canonical address space for the self-hosted services.
-- Those endpoints are not meant to be open to the general internet.
-- Remote access depends on Tailnet authorization.
-- Application access still depends on the account model of each service.
+The **compute node** handles the parts of the system that benefit from a stronger client and playback machine: Jellyfin streaming, the reverse proxy with HTTPS termination for the service subdomains, and day-to-day desktop and development work.
 
-## Node Responsibilities
+The **storage node** handles everything that wants to live near the disks: NAS and file shares, the media automation stack, download clients, DNS for the local network, VPN for the torrent workflow, and home automation through Home Assistant and its Matter backend.
 
-### Compute node
+## Network model
 
-The compute machine handles the parts of the system that benefit from a stronger client and playback box:
+The network is intentionally flat in version one. The router provides DHCP, NAT, and Wi-Fi. A compact 2.5GbE switch serves as the wired aggregation point, and the compute and storage nodes talk to each other over it. Client devices use the same wired core where it makes sense. This keeps things easy to debug while still giving the lab fast local transfers.
 
-- Jellyfin streaming
-- reverse proxy and HTTPS termination for the service subdomains
-- desktop and development work
+## DNS, HTTPS, and remote access
 
-### Storage node
+The access story depends on several layers working together.
 
-The storage machine handles the parts of the system that want to live near the disks:
+**Cloudflare** hosts the authoritative DNS for `gneiss.run`. A wildcard A record covers all service subdomains, and the Cloudflare API provides the DNS-01 challenge that lets Caddy obtain a wildcard TLS certificate from Let's Encrypt. No traffic is proxied through Cloudflare — it acts purely as the DNS authority and cert-issuance hook.
 
-- NAS and file shares
-- media automation stack
-- download clients
-- DNS for the local network
-- VPN layer for the torrent workflow
+**Caddy** runs as a Docker container on the compute node and serves as the reverse proxy for the entire `*.gneiss.run` surface. It terminates HTTPS with the wildcard cert and forwards each request to the correct backend service based on subdomain. Every service gets one stable URL while the implementation details stay hidden behind the proxy layer.
 
-### Home automation appliance
+**Local DNS** resolves the service subdomains to Caddy on the compute node through split DNS on the trusted home network. Local traffic stays local.
 
-The Home Assistant appliance keeps the smart-home layer off the main lab nodes.
+**Remote DNS and overlay networking** resolves the same subdomains through the Tailnet path for trusted remote users instead of the local one.
 
-- Home Assistant Green hardware
-- `home.gneiss.run` for the smart-home control plane
-- isolated automation duties and future Zigbee or Thread expansion
+## Why this layout works
 
-## Network Model
+The public site stays simple and explains the system clearly. Trusted users get one canonical address for each service. Compute and storage responsibilities stay separated. The network can remain simple until there is a real reason to introduce VLANs or more complex firewall rules.
 
-The network is intentionally flat in version one.
+## Next infrastructure steps
 
-- the router still provides DHCP, NAT, and Wi-Fi
-- a compact 2.5GbE switch is the wired aggregation point
-- the compute and storage nodes talk to each other over the switch
-- client devices can use the same wired core where it makes sense
-
-This keeps the first version easy to debug while still giving the lab fast local transfers.
-
-## DNS, HTTPS, And Remote Access
-
-The access story depends on three layers working together.
-
-### Local DNS
-
-On the trusted home network, split DNS resolves the service subdomains to the reverse proxy on the compute node. That keeps local traffic local.
-
-### Remote DNS and overlay networking
-
-For trusted remote users, the same service subdomains resolve through the Tailnet path instead of the local one.
-
-### Reverse proxy
-
-The reverse proxy terminates HTTPS and forwards each request to the correct backend service. This gives every service one stable URL while keeping the implementation details hidden behind the proxy layer.
-
-## Why This Layout Works Well
-
-- the public site can stay simple and explain the system clearly
-- trusted users get one canonical address for each service
-- the compute and storage responsibilities stay separated
-- smart-home duties stay isolated on their own appliance
-- the network can stay simple until there is a real reason to introduce VLANs or a more complex firewall
-
-## Next Infrastructure Steps
-
-The current design is stable enough for daily use, but the roadmap still includes:
-
-- backups for app data and critical configuration
-- monitoring and health visibility
-- a UPS
-- deeper validation for sustained transfers and thermals
-- managed networking only if the simple LAN stops being enough
+The current design is stable for daily use. The roadmap still includes backups for app data and critical configuration, monitoring and health visibility, a UPS, deeper validation for sustained transfers and thermals, and managed networking only if the simple LAN stops being enough.
