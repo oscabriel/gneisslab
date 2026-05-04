@@ -17,29 +17,29 @@ export const publicDocs: PublicDoc[] = [
 	{
 		slug: "overview",
 		title: "Lab Overview",
-		description: "What GNEISS LAB is, what the lab is for, and the guardrails behind the build.",
-		updated: "2026-04-26",
+		description: "What GNEISS LAB is, what it's for, and the design principles behind the build.",
+		updated: "2026-05-03",
 		content: overviewContent,
 	},
 	{
 		slug: "architecture",
 		title: "Architecture",
 		description: "How compute, storage, networking, DNS, HTTPS, and remote access fit together.",
-		updated: "2026-04-26",
+		updated: "2026-05-03",
 		content: architectureContent,
 	},
 	{
 		slug: "hardware",
 		title: "Hardware",
 		description: "The physical layout, storage topology, cooling plan, and cabling decisions.",
-		updated: "2026-04-26",
+		updated: "2026-05-03",
 		content: hardwareContent,
 	},
 	{
 		slug: "software-and-media",
 		title: "Software & Media Stack",
 		description: "The services running on the lab and the media workflow built around them.",
-		updated: "2026-04-26",
+		updated: "2026-05-03",
 		content: softwareAndMediaContent,
 	},
 	{
@@ -47,14 +47,14 @@ export const publicDocs: PublicDoc[] = [
 		title: "Access Model",
 		description:
 			"How the public site, private services, Tailnet access, and app-level auth work together.",
-		updated: "2026-04-18",
+		updated: "2026-05-03",
 		content: accessModelContent,
 	},
 	{
 		slug: "materials",
 		title: "Build Materials",
-		description: "The major hardware components behind the first version of the lab.",
-		updated: "2026-04-26",
+		description: "The build list for the first version of the lab.",
+		updated: "2026-05-03",
 		content: materialsContent,
 	},
 ];

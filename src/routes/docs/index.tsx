@@ -31,9 +31,8 @@ function DocsIndexPage() {
 				<div className="space-y-3">
 					<p className="text-sm font-medium">Public documentation archive.</p>
 					<p className="text-ink-muted text-sm">
-						Curated public subset of lab notes. Content is maintained in markdown for easy editing
-						while preserving a clear boundary between public documentation and private operational
-						details.
+						Curated public subset of lab notes, maintained in markdown with a clear boundary
+						between public documentation and private operational details.
 					</p>
 				</div>
 
@@ -50,7 +49,7 @@ function DocsIndexPage() {
 								<td className="text-ink-muted py-1">Source format</td>
 							</tr>
 							<tr className="border-border-light border-b">
-								<td className="py-1 pl-3 font-medium">2026-04</td>
+								<td className="py-1 pl-3 font-medium">2026-05</td>
 								<td className="text-ink-muted py-1">Last updated</td>
 							</tr>
 						</tbody>
